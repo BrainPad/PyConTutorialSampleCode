@@ -1,5 +1,6 @@
 # -*- coding: utf-8 -*-
 
+import codecs
 import os
 import sqlite3
 import urllib.request
@@ -91,7 +92,10 @@ if __name__ == "__main__":
     # 結果を保存
     with open(output_html, 'w') as f:
         for item in feeds:
-            f.write('<h2><a href="{}">{}</a></h2><p>{}</p>'.format(item['link'], item['title'], item['description']))
+            str_ori = '<h2><a href="{}">{}</a></h2><p>{}</p>'.format(item['link'], item['title'], item['description'])
+            str_before = str_ori.encode('cp932', "ignore")
+            str_after = str_before.decode('cp932')
+            f.write(str_after)
 
     print('ブラウザで下記のpathにアクセス！')
     print('file://' + output_html)
